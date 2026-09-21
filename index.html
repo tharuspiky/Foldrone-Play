@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#071c27">
+<meta name="color-scheme" content="dark">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./foldrone-play-mark.png" type="image/png">
+<link rel="apple-touch-icon" href="./foldrone-play-mark.png">
+<link rel="stylesheet" href="./styles.css">
+<title>Foldrone Play</title>
+</head>
+<body>
+<div id="app">
+<header id="topbar" class="topbar">
+  <button id="homeBtn" class="brand" aria-label="Foldrone Play home"><img src="./header-logo-new.png" alt="Foldrone Play"></button>
+  <div class="top-actions-main">
+    <button id="urlBtn" class="glass-button" aria-label="Open video URL"><span class="i-link"></span><b>URL</b></button>
+    <button id="openBtn" class="glass-button" aria-label="Open media"><span class="i-folder"></span><b>Open</b></button>
+  </div>
+</header>
+
+<main>
+<section id="welcome" class="welcome">
+  <div class="welcome-art-integrated" aria-hidden="true"></div>
+  <div id="weatherLayer" class="weather-layer" aria-hidden="true"></div>
+  <p id="weatherAttribution" class="weather-attribution hidden">Weather data: Open-Meteo</p>
+  <p id="greeting" class="eyebrow"><span id="greetingText"></span><time id="liveClock" class="live-clock" aria-label="Current time"></time></p>
+  <h1>Unbound Playback <span class="title-separator">|</span> One Fluid Space</h1>
+  <p class="welcome-sub">The next evolution in media playback. Intelligent audio tuning and crisp visuals, crafted for absolute clarity.</p>
+  <div class="welcome-actions">
+    <button id="heroOpenBtn" class="hero-button"><span class="i-folder"></span> Open Media</button>
+    <button id="heroUrlBtn" class="hero-button secondary"><span class="i-link"></span> Open URL</button>
+  </div>
+</section>
+
+<section id="player" class="player hidden" aria-hidden="true">
+  <div id="mediaShell" class="media-shell">
+    <div id="preparing" class="preparing hidden"><div class="preparing-glow"></div><img class="preparing-logo" src="./foldrone-play-mark.png" alt="Foldrone Play"><div class="preparing-ring ring-one"></div><div class="preparing-ring ring-two"></div><div class="preparing-spinner"><span></span><small>Preparing media</small></div></div>
+    <div id="mediaStage" class="media-stage">
+      <div id="stageBackdrop" class="stage-backdrop"></div>
+      <div id="audioVisual" class="audio-visual hidden" aria-hidden="true"><div class="audio-orbit orbit-a"></div><div class="audio-orbit orbit-b"></div><img src="./foldrone-play-mark.png" alt="Foldrone Play" class="audio-logo"><div class="audio-wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="audio-title" id="audioTitle">Foldrone Play</div><div class="audio-subtitle">Audio playback</div></div><div id="emptyStage" class="empty-stage"><span class="empty-ring">+</span><h2>Open a media file</h2><p>Video · audio · image · URL</p></div>
+      <video id="video" class="media-element hidden" playsinline webkit-playsinline preload="metadata"></video>
+      <audio id="audio" class="audio-element hidden" preload="metadata"></audio>
+      <img id="image" class="media-element hidden" alt="">
+      <div id="remoteStage" class="remote-stage hidden"></div>
+    </div>
+
+    <div id="modeToast" class="mode-toast" aria-live="polite"><span id="modeToastIcon"></span><div><small id="modeToastType">Mode</small><strong id="modeToastText">Original</strong></div></div>
+
+    <div id="topActions" class="player-actions hidden">
+      <button id="loadSubBtn" class="round-action load-cc-action" aria-label="Load subtitles" title="Load subtitles"><span class="i-cc-plus"></span><b>Load</b></button>
+      <button id="fitBtn" class="round-action frame-action" aria-label="Cycle screen width" title="Cycle screen width"><span class="i-fit"></span><b>Width</b></button>
+      <button id="speedTopBtn" class="round-action speed-action speed-rate-button" aria-label="Playback speed 1×. Tap to cycle speed" title="Playback speed 1×. Tap to cycle speed"><b id="speedTopLabel">1×</b></button>
+      <button id="pipBtn" class="round-action pip-action" aria-label="Picture in Picture" title="Picture in Picture"><span class="i-pip"></span><b>PiP</b></button>
+      <button id="fullscreenBtn" class="round-action full-action" aria-label="Fullscreen" title="Fullscreen"><span class="i-full"></span></button>
+    </div>
+
+    <div id="bottomHud" class="bottom-hud">
+      <div class="seek-row"><span id="currentTime">0:00</span><input id="seek" type="range" min="0" max="0" value="0" step=".01"><span id="duration">0:00</span></div>
+      <div class="hud-modes-row"><div class="hud-group hud-modes"><button id="audioModeBtn" class="hud-pill sound-pill" title="Cycle sound"><span class="i-sound"></span><span>Sound · Original</span></button><button id="videoModeBtn" class="hud-pill quality-pill" title="Cycle video quality"><span class="i-video"></span><span>Video Quality · Original Quality</span></button><button id="closeBtn" class="hud-button close-button" title="Close"><span class="i-close"></span></button></div></div><div class="hud-row">
+        <div class="hud-group transport-group">
+          <button id="prevBtn" class="hud-button transport-button" aria-label="Previous" title="Previous"><span class="i-prev"></span></button>
+          <button id="stopBtn" class="hud-button transport-button stop-button" aria-label="Stop" title="Stop"><span class="i-stop"></span></button>
+          <button id="playBtn" class="main-play" aria-label="Play or pause"><span class="i-play"></span></button>
+          <button id="backBtn" class="hud-button transport-button" title="Back 10 seconds"><span class="i-back"></span><b>10</b></button>
+          <button id="forwardBtn" class="hud-button transport-button" title="Forward 10 seconds"><span class="i-forward"></span><b>10</b></button>
+          <button id="nextBtn" class="hud-button transport-button" aria-label="Next" title="Next"><span class="i-next"></span></button>
+          <button id="muteBtn" class="hud-button mute-button" title="Mute" aria-label="Mute" aria-pressed="false"><span class="i-volume"></span></button>
+          <button id="repeatBtn" class="hud-button repeat-button" title="Repeat mode" aria-label="Repeat mode"><span class="i-repeat"></span></button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<div id="subtitleModal" class="url-modal hidden" role="dialog" aria-modal="true" aria-labelledby="subtitleTitle">
+  <div class="url-card subtitle-card">
+    <div class="url-head"><div><small>FOLDRONE CC ENGINE</small><h2 id="subtitleTitle">Load Subtitles</h2></div><button id="subtitleClose" class="hud-button" aria-label="Close"><span class="i-close"></span></button></div>
+    <p class="url-help">Load a local subtitle file, or search a trusted subtitle service. Foldrone never exposes provider API keys in the browser.</p>
+    <div class="subtitle-load-actions">
+      <button id="subtitleChoose" class="modal-button">Choose Subtitle File</button>
+      <button id="subtitleOnline" class="modal-button secondary">Find Online</button>
+    </div>
+    <div id="subtitleSync" class="subtitle-sync hidden" aria-live="polite">
+      <div class="sync-head"><div><small>CC SYNC</small><strong id="syncTrackName">Subtitle timing</strong></div><span id="syncOffset">0.0s</span></div>
+      <div class="sync-controls">
+        <button id="syncMinus1" class="sync-button" type="button">−1s</button>
+        <button id="syncMinus01" class="sync-button" type="button">−0.1s</button>
+        <button id="syncReset" class="sync-button reset" type="button">Reset</button>
+        <button id="syncPlus01" class="sync-button" type="button">+0.1s</button>
+        <button id="syncPlus1" class="sync-button" type="button">+1s</button>
+      </div>
+      <small class="sync-help">Adjust the active subtitle without replacing the file.</small>
+    </div>
+    <div id="subtitleProviders" class="subtitle-providers hidden">
+      <div class="provider-note">Search providers for the current media title, then load the downloaded SRT/VTT file back into Foldrone.</div>
+      <div class="provider-grid">
+        <a href="https://www.opensubtitles.com/" target="_blank" rel="noopener noreferrer">OpenSubtitles</a>
+        <a href="https://subdl.com/" target="_blank" rel="noopener noreferrer">SubDL</a>
+        <a href="https://www.addic7ed.com/" target="_blank" rel="noopener noreferrer">Addic7ed</a>
+        <a href="https://www.podnapisi.net/" target="_blank" rel="noopener noreferrer">Podnapisi</a>
+        <a href="https://downsub.com/" target="_blank" rel="noopener noreferrer">DownSub</a>
+      </div>
+      <small class="provider-security">Automatic provider search can be connected later through a server-side provider adapter. No provider credential is stored client-side.</small>
+    </div>
+  </div>
+</div>
+
+<div id="urlModal" class="url-modal hidden" role="dialog" aria-modal="true" aria-labelledby="urlTitle">
+  <div class="url-card">
+    <div class="url-head"><div><small>FOLDRONE PLAY</small><h2 id="urlTitle">Play a public video URL</h2></div><button id="urlClose" class="hud-button" aria-label="Close"><span class="i-close"></span></button></div>
+    <p class="url-help">Direct MP4/WebM/MOV links play natively. YouTube, TikTok and Facebook links use their official embedded players when embedding is permitted.</p>
+    <input id="urlInput" class="url-input" type="url" inputmode="url" placeholder="https://…" autocomplete="off" spellcheck="false">
+    <div class="url-actions"><button id="urlCancel" class="modal-button secondary">Cancel</button><button id="urlPlay" class="modal-button">Play URL</button></div>
+  </div>
+</div>
+
+<input id="fileInput" type="file" accept="video/*,audio/*,image/*,.mkv,.m4v,.webm,.mp4,.mov,.avi,.mp3,.wav,.flac,.m4a,.aac,.ogg,.opus,.srt,.vtt,.ass,.ssa" hidden multiple>
+<input id="subtitleInput" type="file" accept=".srt,.vtt,.ass,.ssa,text/vtt,application/x-subrip" hidden multiple>
+<script src="./app.js" defer></script>
+</div>
+</body>
+</html>
